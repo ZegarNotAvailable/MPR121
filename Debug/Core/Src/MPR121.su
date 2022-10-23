@@ -1,0 +1,6 @@
+../Core/Src/MPR121.c:41:6:readKeyboard	24	static
+../Core/Src/MPR121.c:96:6:mpr121_setup	8	static
+../Core/Src/MPR121.c:170:6:set_register	32	static
+../Core/Src/MPR121.c:175:6:sendKey	16	static
+../Core/Src/MPR121.c:188:6:Write8	32	static
+../Core/Src/MPR121.c:196:10:Read16	32	static
