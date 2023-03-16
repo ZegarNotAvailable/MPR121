@@ -1,0 +1,6 @@
+MPR121.c:41:6:readKeyboard	9
+MPR121.c:96:6:mpr121_setup	1
+MPR121.c:170:6:set_register	1
+MPR121.c:175:6:sendKey	2
+MPR121.c:188:6:Write8	1
+MPR121.c:196:10:Read16	1

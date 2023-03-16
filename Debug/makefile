@@ -60,8 +60,8 @@ all: main-build
 main-build: MPR121.elf secondary-outputs
 
 # Tool invocations
-MPR121.elf MPR121.map: $(OBJS) $(USER_OBJS) C:\STM32CubeIDE\workspace_1.6.1\MPR121\STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "MPR121.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\STM32CubeIDE\workspace_1.6.1\MPR121\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MPR121.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+MPR121.elf MPR121.map: $(OBJS) $(USER_OBJS) C:\Users\zegar\Documents\GitHub\MPR121\STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "MPR121.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\zegar\Documents\GitHub\MPR121\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MPR121.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

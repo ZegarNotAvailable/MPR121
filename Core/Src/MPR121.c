@@ -72,8 +72,8 @@ void readKeyboard()
       for (uint8_t j = 4; j < 10; j++) // Check which electrode were pressed
       {
         if ((touchstatus & (1 << j)))
-          //column = 5 - (j - 4);   // Reverse order of electrodes ...
-          column =(j - 4);
+          column = 5 - (j - 4);   // Reverse order of electrodes ...
+          //column =(j - 4);
       }
       //uint8_t keyCode = (row ^ 0xF) | ( column << 4 ); // Calculate the key code
       uint8_t keyCode = keys[rowTemp][column];

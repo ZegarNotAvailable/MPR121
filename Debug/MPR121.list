@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  000156d7  00000000  00000000  0002e0c8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000cbfa  00000000  00000000  0004379f  2**0
+ 17 .debug_line   0000cca4  00000000  00000000  0004379f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00084299  00000000  00000000  00050399  2**0
+ 18 .debug_str    000842b1  00000000  00000000  00050443  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000050  00000000  00000000  000d4632  2**0
+ 19 .comment      00000050  00000000  00000000  000d46f4  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00002574  00000000  00000000  000d4684  2**2
+ 20 .debug_frame  00002574  00000000  00000000  000d4744  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -423,7 +423,7 @@ void readKeyboard()
   if (touchNumber == 1)
  8000542:	7bfb      	ldrb	r3, [r7, #15]
  8000544:	2b01      	cmp	r3, #1
- 8000546:	d142      	bne.n	80005ce <readKeyboard+0xf2>
+ 8000546:	d143      	bne.n	80005d0 <readKeyboard+0xf4>
   {
     //Serial.print(row);
     touchNumber = 0;
@@ -456,13 +456,13 @@ void readKeyboard()
     if (touchNumber == 1)
  8000574:	7bfb      	ldrb	r3, [r7, #15]
  8000576:	2b01      	cmp	r3, #1
- 8000578:	d122      	bne.n	80005c0 <readKeyboard+0xe4>
+ 8000578:	d123      	bne.n	80005c2 <readKeyboard+0xe6>
     {
       //uint8_t col = touchstatus & 0x3F0;
       for (uint8_t j = 4; j < 10; j++) // Check which electrode were pressed
  800057a:	2304      	movs	r3, #4
  800057c:	727b      	strb	r3, [r7, #9]
- 800057e:	e00d      	b.n	800059c <readKeyboard+0xc0>
+ 800057e:	e00e      	b.n	800059e <readKeyboard+0xc2>
       {
         if ((touchstatus & (1 << j)))
  8000580:	88fa      	ldrh	r2, [r7, #6]
@@ -470,65 +470,64 @@ void readKeyboard()
  8000584:	fa42 f303 	asr.w	r3, r2, r3
  8000588:	f003 0301 	and.w	r3, r3, #1
  800058c:	2b00      	cmp	r3, #0
- 800058e:	d002      	beq.n	8000596 <readKeyboard+0xba>
-          //column = 5 - (j - 4);   // Reverse order of electrodes ...
-          column =(j - 4);
+ 800058e:	d003      	beq.n	8000598 <readKeyboard+0xbc>
+          column = 5 - (j - 4);   // Reverse order of electrodes ...
  8000590:	7a7b      	ldrb	r3, [r7, #9]
- 8000592:	3b04      	subs	r3, #4
- 8000594:	733b      	strb	r3, [r7, #12]
+ 8000592:	f1c3 0309 	rsb	r3, r3, #9
+ 8000596:	733b      	strb	r3, [r7, #12]
       for (uint8_t j = 4; j < 10; j++) // Check which electrode were pressed
- 8000596:	7a7b      	ldrb	r3, [r7, #9]
- 8000598:	3301      	adds	r3, #1
- 800059a:	727b      	strb	r3, [r7, #9]
- 800059c:	7a7b      	ldrb	r3, [r7, #9]
- 800059e:	2b09      	cmp	r3, #9
- 80005a0:	d9ee      	bls.n	8000580 <readKeyboard+0xa4>
+ 8000598:	7a7b      	ldrb	r3, [r7, #9]
+ 800059a:	3301      	adds	r3, #1
+ 800059c:	727b      	strb	r3, [r7, #9]
+ 800059e:	7a7b      	ldrb	r3, [r7, #9]
+ 80005a0:	2b09      	cmp	r3, #9
+ 80005a2:	d9ed      	bls.n	8000580 <readKeyboard+0xa4>
+          //column =(j - 4);
       }
       //uint8_t keyCode = (row ^ 0xF) | ( column << 4 ); // Calculate the key code
       uint8_t keyCode = keys[rowTemp][column];
- 80005a2:	7b7a      	ldrb	r2, [r7, #13]
- 80005a4:	7b39      	ldrb	r1, [r7, #12]
- 80005a6:	480f      	ldr	r0, [pc, #60]	; (80005e4 <readKeyboard+0x108>)
- 80005a8:	4613      	mov	r3, r2
- 80005aa:	00db      	lsls	r3, r3, #3
- 80005ac:	1a9b      	subs	r3, r3, r2
- 80005ae:	4403      	add	r3, r0
- 80005b0:	440b      	add	r3, r1
- 80005b2:	781b      	ldrb	r3, [r3, #0]
- 80005b4:	70fb      	strb	r3, [r7, #3]
+ 80005a4:	7b7a      	ldrb	r2, [r7, #13]
+ 80005a6:	7b39      	ldrb	r1, [r7, #12]
+ 80005a8:	480e      	ldr	r0, [pc, #56]	; (80005e4 <readKeyboard+0x108>)
+ 80005aa:	4613      	mov	r3, r2
+ 80005ac:	00db      	lsls	r3, r3, #3
+ 80005ae:	1a9b      	subs	r3, r3, r2
+ 80005b0:	4403      	add	r3, r0
+ 80005b2:	440b      	add	r3, r1
+ 80005b4:	781b      	ldrb	r3, [r3, #0]
+ 80005b6:	70fb      	strb	r3, [r7, #3]
       sendKey(keyCode);
- 80005b6:	78fb      	ldrb	r3, [r7, #3]
- 80005b8:	4618      	mov	r0, r3
- 80005ba:	f000 f911 	bl	80007e0 <sendKey>
+ 80005b8:	78fb      	ldrb	r3, [r7, #3]
+ 80005ba:	4618      	mov	r0, r3
+ 80005bc:	f000 f910 	bl	80007e0 <sendKey>
   else
   {
     uint8_t keyCode = 0xFF;
     sendKey(keyCode);     //noKey()
   }
 }
- 80005be:	e00c      	b.n	80005da <readKeyboard+0xfe>
+ 80005c0:	e00c      	b.n	80005dc <readKeyboard+0x100>
       uint8_t keyCode = 0xFF;  //noKey()
- 80005c0:	23ff      	movs	r3, #255	; 0xff
- 80005c2:	713b      	strb	r3, [r7, #4]
+ 80005c2:	23ff      	movs	r3, #255	; 0xff
+ 80005c4:	713b      	strb	r3, [r7, #4]
       sendKey(keyCode);
- 80005c4:	793b      	ldrb	r3, [r7, #4]
- 80005c6:	4618      	mov	r0, r3
- 80005c8:	f000 f90a 	bl	80007e0 <sendKey>
+ 80005c6:	793b      	ldrb	r3, [r7, #4]
+ 80005c8:	4618      	mov	r0, r3
+ 80005ca:	f000 f909 	bl	80007e0 <sendKey>
 }
- 80005cc:	e005      	b.n	80005da <readKeyboard+0xfe>
+ 80005ce:	e005      	b.n	80005dc <readKeyboard+0x100>
     uint8_t keyCode = 0xFF;
- 80005ce:	23ff      	movs	r3, #255	; 0xff
- 80005d0:	717b      	strb	r3, [r7, #5]
+ 80005d0:	23ff      	movs	r3, #255	; 0xff
+ 80005d2:	717b      	strb	r3, [r7, #5]
     sendKey(keyCode);     //noKey()
- 80005d2:	797b      	ldrb	r3, [r7, #5]
- 80005d4:	4618      	mov	r0, r3
- 80005d6:	f000 f903 	bl	80007e0 <sendKey>
+ 80005d4:	797b      	ldrb	r3, [r7, #5]
+ 80005d6:	4618      	mov	r0, r3
+ 80005d8:	f000 f902 	bl	80007e0 <sendKey>
 }
- 80005da:	bf00      	nop
- 80005dc:	3710      	adds	r7, #16
- 80005de:	46bd      	mov	sp, r7
- 80005e0:	bd80      	pop	{r7, pc}
- 80005e2:	bf00      	nop
+ 80005dc:	bf00      	nop
+ 80005de:	3710      	adds	r7, #16
+ 80005e0:	46bd      	mov	sp, r7
+ 80005e2:	bd80      	pop	{r7, pc}
  80005e4:	20000000 	.word	0x20000000
 
 080005e8 <mpr121_setup>:
@@ -1023,8 +1022,8 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
  800091e:	2300      	movs	r3, #0
  8000920:	61bb      	str	r3, [r7, #24]
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
- 8000922:	2300      	movs	r3, #0
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+ 8000922:	2301      	movs	r3, #1
  8000924:	61fb      	str	r3, [r7, #28]
   HAL_GPIO_Init(MPR121_IRQ_GPIO_Port, &GPIO_InitStruct);
  8000926:	f107 0314 	add.w	r3, r7, #20
@@ -1242,24 +1241,24 @@ int main(void)
   MX_I2C1_Init();
  8000a4c:	f7ff ff7e 	bl	800094c <MX_I2C1_Init>
   /* USER CODE BEGIN 2 */
-  mpr121_setup();
+	mpr121_setup();
  8000a50:	f7ff fdca 	bl	80005e8 <mpr121_setup>
+  /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    if(HAL_GPIO_ReadPin(MPR121_IRQ_GPIO_Port, MPR121_IRQ_Pin) == GPIO_PIN_RESET)
+	while (1) {
+		if (HAL_GPIO_ReadPin(MPR121_IRQ_GPIO_Port, MPR121_IRQ_Pin)
  8000a54:	f44f 6180 	mov.w	r1, #1024	; 0x400
  8000a58:	4804      	ldr	r0, [pc, #16]	; (8000a6c <main+0x34>)
  8000a5a:	f000 fc55 	bl	8001308 <HAL_GPIO_ReadPin>
  8000a5e:	4603      	mov	r3, r0
  8000a60:	2b00      	cmp	r3, #0
  8000a62:	d1f7      	bne.n	8000a54 <main+0x1c>
-      {
-	readKeyboard();
+				== GPIO_PIN_RESET) {
+			readKeyboard();
  8000a64:	f7ff fd3a 	bl	80004dc <readKeyboard>
-    if(HAL_GPIO_ReadPin(MPR121_IRQ_GPIO_Port, MPR121_IRQ_Pin) == GPIO_PIN_RESET)
+		if (HAL_GPIO_ReadPin(MPR121_IRQ_GPIO_Port, MPR121_IRQ_Pin)
  8000a68:	e7f4      	b.n	8000a54 <main+0x1c>
  8000a6a:	bf00      	nop
  8000a6c:	40020400 	.word	0x40020400
@@ -1419,9 +1418,9 @@ __STATIC_FORCEINLINE void __disable_irq(void)
 }
  8000b4a:	bf00      	nop
   /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-  __disable_irq();
-  while (1)
+	/* User can add his own implementation to report the HAL error return state */
+	__disable_irq();
+	while (1) {
  8000b4c:	e7fe      	b.n	8000b4c <Error_Handler+0x8>
 	...
 
